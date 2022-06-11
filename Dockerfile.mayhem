@@ -40,23 +40,23 @@ RUN curl -LO "https://github.com/CGAL/cgal/releases/download/v${CGAL_VERSION}/CG
     && cd .. \
     && rm -rf build CGAL-${CGAL_VERSION}
 
-# RUN pip3 install \
-#     numpy \
-#     matplotlib \
-#     scipy \
-#     Cython \
-#     POT \
-#     scikit-learn
+RUN pip3 install \
+    numpy \
+    matplotlib \
+    scipy \
+    Cython \
+    POT \
+    scikit-learn
 
-# # apt clean up
-# RUN apt-get autoremove && rm -rf /var/lib/apt/lists/*
+# apt clean up
+RUN apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
-# ARG GUDHI_VERSION="3.4.1"
+ARG GUDHI_VERSION="3.4.1"
 
-# COPY . /repo
-# WORKDIR /repo/build
-# RUN cmake -DCMAKE_BUILD_TYPE=Release -DWITH_GUDHI_PYTHON=OFF -DPython_ADDITIONAL_VERSIONS=3 ..  
-# RUN make  -j8
+COPY . /repo
+WORKDIR /repo/build
+RUN cmake -DCMAKE_BUILD_TYPE=Release -DWITH_GUDHI_PYTHON=OFF -DPython_ADDITIONAL_VERSIONS=3 ..  
+RUN make  -j8
 
 
 # RUN mkdir -p /deps
