@@ -55,15 +55,14 @@ ARG GUDHI_VERSION="3.4.1"
 
 COPY . /repo
 WORKDIR /repo/build
-RUN cmake -DCMAKE_BUILD_TYPE=Release -DWITH_GUDHI_PYTHON=OFF -DPython_ADDITIONAL_VERSIONS=3 ..  
-RUN make  -j8
-
-
-RUN mkdir -p /deps
-RUN ldd /repo/build/src/Alpha_complex/utilities/alpha_complex_persistence | tr -s '[:blank:]' '\n' | grep '^/' | xargs -I % sh -c 'cp % /deps;'
+RUN cmake -DCMAKE_BUILD_TYPE=Release -DWITH_GUDHI_PYTHON=OFF -DPython_ADDITIONAL_VERSIONS=3 ..
+RUN make -j8
 
 FROM ubuntu:20.04 as package
-
-COPY --from=builder /deps /deps
-COPY --from=builder /repo/build/src/Alpha_complex/utilities/alpha_complex_persistence /repo/build/src/Alpha_complex/utilities/alpha_complex_persistence
-ENV LD_LIBRARY_PATH=/deps
+RUN apt-get update
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get install -y \
+    libboost-all-dev \
+    libmpfr-dev \
+    libtbb-dev 
+COPY --from=builder /repo/build/src/Alpha_complex/utilities/alpha_complex_persistence /
