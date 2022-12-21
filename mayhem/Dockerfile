@@ -55,6 +55,8 @@ ARG GUDHI_VERSION="3.4.1"
 
 COPY . /repo
 WORKDIR /repo/build
+RUN cp /repo/mayhem/src_CMakeLists.txt /repo/src/CMakeLists.txt
+RUN cp /repo/mayhem/test_CMakeLists.txt /repo/src/Alpha_complex/test/CMakeLists.txt
 RUN cmake -DCMAKE_BUILD_TYPE=Release -DWITH_GUDHI_PYTHON=OFF -DPython_ADDITIONAL_VERSIONS=3 ..
 RUN make -j8
 
