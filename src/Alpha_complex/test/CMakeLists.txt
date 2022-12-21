@@ -6,6 +6,7 @@ project(Alpha_complex_tests)
   # # Do not forget to copy test files in current binary dir
   # file(COPY "${CMAKE_SOURCE_DIR}/data/points/alphacomplexdoc.off" DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
+<<<<<<< HEAD
   # add_executable ( Alpha_complex_test_unit Alpha_complex_unit_test.cpp )
   # target_link_libraries(Alpha_complex_test_unit ${CGAL_LIBRARY})
   # add_executable ( Delaunay_complex_test_unit Delaunay_complex_unit_test.cpp )
@@ -17,6 +18,23 @@ project(Alpha_complex_tests)
 
   # gudhi_add_boost_test(Alpha_complex_test_unit)
   # gudhi_add_boost_test(Delaunay_complex_test_unit)
+=======
+  add_executable ( Alpha_complex_test_unit Alpha_complex_unit_test.cpp )
+  target_link_libraries(Alpha_complex_test_unit ${CGAL_LIBRARY})
+  add_executable ( Alpha_complex_dim3_test_unit Alpha_complex_dim3_unit_test.cpp )
+  target_link_libraries(Alpha_complex_dim3_test_unit ${CGAL_LIBRARY})
+  add_executable ( Delaunay_complex_test_unit Delaunay_complex_unit_test.cpp )
+  target_link_libraries(Delaunay_complex_test_unit ${CGAL_LIBRARY})
+  if (TBB_FOUND)
+    target_link_libraries(Alpha_complex_test_unit ${TBB_LIBRARIES})
+    target_link_libraries(Alpha_complex_dim3_test_unit ${TBB_LIBRARIES})
+    target_link_libraries(Delaunay_complex_test_unit ${TBB_LIBRARIES})
+  endif()
+
+  gudhi_add_boost_test(Alpha_complex_test_unit)
+  gudhi_add_boost_test(Alpha_complex_dim3_test_unit)
+  gudhi_add_boost_test(Delaunay_complex_test_unit)
+>>>>>>> GUDHI-master
 
 # endif (NOT CGAL_WITH_EIGEN3_VERSION VERSION_LESS 4.11.0)
 
@@ -73,4 +91,4 @@ project(Alpha_complex_tests)
   # endif()
   # gudhi_add_boost_test(Zero_weighted_alpha_complex_test_unit)
 
-# endif (NOT CGAL_WITH_EIGEN3_VERSION VERSION_LESS 5.1.0)
+endif (NOT CGAL_WITH_EIGEN3_VERSION VERSION_LESS 5.1.0)
