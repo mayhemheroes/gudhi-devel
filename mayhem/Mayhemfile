@@ -1,0 +1,4 @@
+project: gudhi-devel
+target: alpha-complex-persistence
+cmds:
+  - cmd: /alpha_complex_persistence @@
