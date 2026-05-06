@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 as builder
+FROM ubuntu:20.04 AS builder
 
 RUN apt-get update
 # DEBIAN_FRONTEND=noninteractive is used to prevent installation of
@@ -44,8 +44,7 @@ RUN pip3 install \
     numpy \
     matplotlib \
     scipy \
-    Cython \
-    POT \
+    "Cython<3" \
     scikit-learn
 
 # apt clean up
@@ -60,7 +59,7 @@ RUN cp /repo/mayhem/test_CMakeLists.txt /repo/src/Alpha_complex/test/CMakeLists.
 RUN cmake -DCMAKE_BUILD_TYPE=Release -DWITH_GUDHI_PYTHON=OFF -DPython_ADDITIONAL_VERSIONS=3 ..
 RUN make -j8
 
-FROM ubuntu:20.04 as package
+FROM ubuntu:22.04 AS package
 RUN apt-get update
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get install -y \
